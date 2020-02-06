@@ -1,4 +1,7 @@
 import React from 'react'
+import config from '../../config/config';
+
+const server_url = config.SERVER_URL;
 
 class NasaTechport extends React.Component {
 	constructor(props) {
@@ -9,7 +12,17 @@ class NasaTechport extends React.Component {
 	}
 
 	componentDidMount() {
-
+		fetch(server_url + '/api/projects' + '?api_key=' + config.API_KEY, {
+			method: 'get',
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+			this.setState({
+			  projects: data,
+			}) 
+		})
+		.catch((err) => {console.log(err)});
 	}
 
 	render(){
