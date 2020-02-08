@@ -1,6 +1,8 @@
 import React from 'react'
 import config from '../../config/config';
 import ProjectCard from '../../Components/ProjectCard/ProjectCard';
+import nasaLogo from '../../assets/nasa-logo.png';
+import techportLogo from '../../assets/techport-logo.png';
 
 const server_url = config.SERVER_URL;
 
@@ -47,13 +49,14 @@ class NasaTechport extends React.Component {
 		return(
 			<div>
 				<div style={Header}>
-					<h1>NasaTechport Page</h1>
+					<img src={techportLogo} alt="NasaLogo" />
+					<img src={nasaLogo} alt="TechPort" />
 				</div>
-				<main style={Main}>
+				<body style={Main}>
 					<div style={Projects}>
 			            { this.state.projects.map((projectId, i) => <ProjectCard id={projectId} key={i} /> ) }
 			        </div>
-				</main>
+				</body>
 			</div>
 		)
 	}
@@ -73,15 +76,15 @@ const Projects = {
 }
 
 const Main = {
-    minHeight: '800px',
-    backgroundColor: '#646464',
+    minHeight: '1200px',
+    backgroundColor: '#101010',
 }
 
 const Header = {
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	backgroundColor: '#553399',
+	backgroundColor: 'black',
 	height: '150px'
 }
 
