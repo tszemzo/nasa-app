@@ -48,9 +48,14 @@ class NasaTechport extends React.Component {
 	render(){
 		return(
 			<div>
-				<div style={Header}>
-					<img src={techportLogo} alt="NasaLogo" />
-					<img src={nasaLogo} alt="TechPort" />
+				<div style={NavBar}>
+					<div style={LinksWrapper}>
+						<a style={Link} href="home"><b>Home</b></a>
+						<a style={Link} href="news"><b>News</b></a>
+						<a style={Link} href="contact"><b>Contact</b></a>
+					</div>
+					<img src={techportLogo} style={TechportLogo} alt="NasaLogo" />
+					<img src={nasaLogo} style={NasaLogo} alt="TechPort" />
 				</div>
 				<body style={Main}>
 					<div style={Projects}>
@@ -80,12 +85,35 @@ const Main = {
     backgroundColor: '#101010',
 }
 
-const Header = {
+const NavBar = {
 	display: 'flex',
-	justifyContent: 'center',
+	flexWrap: 'wrap',
+	justifyContent: 'space-around',
+	width: '100%',
 	alignItems: 'center',
 	backgroundColor: 'black',
 	height: '150px'
 }
+
+const Link = {
+	float: 'left',
+	textAlign: 'center',
+	padding: '12px',
+	color: 'white',
+	textDecoration: 'none',
+	fontSize: '18px',
+}
+
+const LinksWrapper = {
+}
+
+const TechportLogo = {
+	height: 50
+
+}
+const NasaLogo = {
+	height: 80,
+}
+
 
 export default NasaTechport;
