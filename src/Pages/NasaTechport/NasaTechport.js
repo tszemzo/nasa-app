@@ -21,7 +21,7 @@ class NasaTechport extends React.Component {
 	getProjects() {
 		const route = '/api/projects'
 		const auth = '?api_key=' + config.API_KEY
-		const projectsAmount = 4
+		const projectsAmount = 8
 
 		fetch(server_url + route + auth, {
 			method: 'get',

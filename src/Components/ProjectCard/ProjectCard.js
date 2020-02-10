@@ -11,10 +11,13 @@ class ProjectCard extends React.Component {
         this.state = {
             project: {},
             maxHeight: cardHeight,
-            showDescription: true
+            showDescription: true,
+            opacity: 1
         }
 
         this.maxHeightHandler = this.maxHeightHandler.bind(this)
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
     }
 
     componentDidMount(){
@@ -36,6 +39,14 @@ class ProjectCard extends React.Component {
             })
         })
         .catch((err) => {console.log(err)});
+    }
+
+    mouseEnter() {
+        this.setState({opacity: 0.6})
+    }
+
+    mouseLeave() {
+        this.setState({opacity: 1})
     }
 
     maxHeightHandler(currentHeight, showDescription) {
@@ -72,10 +83,11 @@ class ProjectCard extends React.Component {
             maxHeight: this.state.maxHeight,
             maxWidth: '450px',
             margin: '2rem',
+            opacity: this.state.opacity
         }
 
         return(
-            <div style={Card}>
+            <div style={Card} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <div style={Container}>
                     <div style={TitleAndStatus}>
                         <h4 style={Title}><b>{this.state.project.title}</b></h4>
@@ -123,7 +135,8 @@ const ActiveStatus = {
     padding: '10px 10px',
     backgroundColor: '#5ca8c1',
     minWidth: '80px',
-    maxHeight: '20px'
+    maxHeight: '20px',
+    fontWeight: 500
 }
 const CompletedStatus = {
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
@@ -133,7 +146,8 @@ const CompletedStatus = {
     padding: '10px 15px',
     backgroundColor: '#00FF00',
     minWidth: '80px',
-    maxHeight: '20px'
+    maxHeight: '20px',
+    fontWeight: 500
 }
 const Dates = {
     display: 'flex',
