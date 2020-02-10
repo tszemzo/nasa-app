@@ -34,7 +34,9 @@ class NasaTechport extends React.Component {
 			  projects: projectIds,
 			})
 		})
-		.catch((err) => {console.log(err)});
+		.catch((err) => {
+			console.log(err)
+		});
 	}
 
 	getProjectIds(projects, amount) {
@@ -57,11 +59,11 @@ class NasaTechport extends React.Component {
 					<img src={techportLogo} style={TechportLogo} alt="NasaLogo" />
 					<img src={nasaLogo} style={NasaLogo} alt="TechPort" />
 				</div>
-				<body style={Main}>
+				<main style={Main}>
 					<div style={Projects}>
 			            { this.state.projects.map((projectId, i) => <ProjectCard id={projectId} key={i} /> ) }
 			        </div>
-				</body>
+				</main>
 			</div>
 		)
 	}
@@ -72,7 +74,7 @@ const Projects = {
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     overflow: 'auto',
     width: '90%',
     marginLeft: 'auto',
