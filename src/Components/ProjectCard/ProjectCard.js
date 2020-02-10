@@ -2,6 +2,10 @@ import React from 'react';
 import config from '../../config/config';
 import Collapsible from '../Collapsible/Collapsible';
 
+import dateIcon from '../../assets/date-icon.png';
+import updateIcon from '../../assets/update-icon.png';
+import descriptionIcon from '../../assets/description-icon.png';
+
 const server_url = config.SERVER_URL;
 const cardHeight = 350 
 
@@ -18,6 +22,7 @@ class ProjectCard extends React.Component {
         this.maxHeightHandler = this.maxHeightHandler.bind(this)
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
+        this.toggleRemove = this.toggleRemove.bind(this);
     }
 
     componentDidMount(){
@@ -41,8 +46,13 @@ class ProjectCard extends React.Component {
         .catch((err) => {console.log(err)});
     }
 
+    toggleRemove() {
+        let currentId = this.state.project.id
+        this.props.removeProject()
+    }
+
     mouseEnter() {
-        this.setState({opacity: 0.6})
+        this.setState({opacity: 0.8})
     }
 
     mouseLeave() {
@@ -89,13 +99,22 @@ class ProjectCard extends React.Component {
         return(
             <div style={Card} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <div style={Container}>
-                    <div style={TitleAndStatus}>
-                        <h4 style={Title}><b>{this.state.project.title}</b></h4>
-                        <p style={this.state.project.status === 'Active' ? ActiveStatus : CompletedStatus}>{this.state.project.status}</p>
+                    <div style={TopCard}>
+                        <h5 style={Title}>{this.state.project.title}</h5>
+                        <div style={StatusAndRemove}>
+                            <button style={RemoveButton} onClick={this.toggleRemove}>Remove</button>
+                            <p style={this.state.project.status === 'Active' ? ActiveStatus : CompletedStatus}>{this.state.project.status}</p>
+                        </div>
                     </div>
                     <div style={Dates}>
-                        <p style={DateWrapper}><i>Start Date:</i> {this.state.project.startDate}</p>
-                        <p style={DateWrapper}><i>Last Update:</i> {this.parseLastUpdated()}</p>
+                        <div style={DateAndIcon}>
+                            <img src={dateIcon} style={DateIcon} alt="Date" />
+                            <p style={DateWrapper}><i>Start Date:</i> {this.state.project.startDate}</p>
+                        </div>
+                        <div style={DateAndIcon}>
+                            <img src={updateIcon} style={DateIcon} alt="Update" />
+                            <p style={DateWrapper}><i>Last Update:</i> {this.parseLastUpdated()}</p>
+                        </div>
                     </div>
                     <div style={Description}>
                         <h4 style={DescriptionSubt}>{this.state.showDescription ? 'Description' : null}</h4>
@@ -117,24 +136,45 @@ class ProjectCard extends React.Component {
 const Container = {
     padding: '2px 16px',
 }
+const TopCard = {
+    display: 'flex',
+    height: '120px'
+}
 const Title = {
     marginTop: '1rem',
     marginRight: '.5rem',
     textAlign: 'justify',
     wordSpacing:'-2px',
 }
-const TitleAndStatus = {
+const StatusAndRemove = {
     display: 'flex',
-    height: '120px'
+    flexDirection: 'column',
+    alignItems: 'flex-end'
+}
+const RemoveButton = {
+    fontSize: '16px',
+    padding: '10px 10px',
+    width: '100px',
+    height: '38px',
+    marginTop: '1rem',
+    borderRadius: '10px',
+    backgroundColor: '#555555',
+    textAlign: 'center',
+    cursor: 'pointer',
+    color: 'white',
+    border: 'none',
+    outline: 'none',
+    fontWeight: 500,
 }
 const ActiveStatus = {
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     borderRadius: '10px',
     margin: '1rem',
-    marginRight: '.5rem',
-    padding: '10px 10px',
+    marginRight: 0,
+    padding: '10px 0',
     backgroundColor: '#5ca8c1',
-    minWidth: '80px',
+    minWidth: '100px',
+    maxWidth: '100px',
     maxHeight: '20px',
     fontWeight: 500
 }
@@ -142,10 +182,11 @@ const CompletedStatus = {
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     borderRadius: '10px',
     margin: '1rem',
-    marginRight: '.5rem',
-    padding: '10px 15px',
+    marginRight: 0,
+    padding: '10px 0px',
     backgroundColor: '#00FF00',
-    minWidth: '80px',
+    minWidth: '100px',
+    maxWidth: '100px',
     maxHeight: '20px',
     fontWeight: 500
 }
@@ -159,6 +200,9 @@ const Dates = {
 const DateWrapper = {
     margin: '.3rem',
     fontSize: '14px',
+}
+const DateAndIcon = {
+    display: 'flex'
 }
 const Description = {
     minHeight: '90px',
@@ -176,5 +220,14 @@ const DescriptionWrapper = {
 const CollapsibleText = {
     padding: '10px',
 }
+const DateIcon = {
+    height: 17,
+    padding: 5
+}
+const DescriptionIcon = {
+    height: 17,
+    padding: 5
+}
+
 
 export default ProjectCard;

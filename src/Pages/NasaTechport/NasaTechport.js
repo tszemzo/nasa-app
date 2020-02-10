@@ -1,8 +1,8 @@
 import React from 'react'
 import config from '../../config/config';
+
 import ProjectCard from '../../Components/ProjectCard/ProjectCard';
-import nasaLogo from '../../assets/nasa-logo.png';
-import techportLogo from '../../assets/techport-logo.png';
+import NavBar from '../../Components/NavBar/NavBar';
 
 const server_url = config.SERVER_URL;
 
@@ -12,16 +12,26 @@ class NasaTechport extends React.Component {
 		this.state = {
 			projects: [],
 		}
+
+		this.removeProject = this.removeProject.bind(this)
 	}
 
 	componentDidMount() {
 		this.getProjects()
 	}
 
+	removeProject(currentProject) {
+		let projects = this.state.projects
+		projects.splice( projects.indexOf(currentProject), 1 )
+        this.setState({
+          projects: projects
+        })
+    }
+
 	getProjects() {
 		const route = '/api/projects'
 		const auth = '?api_key=' + config.API_KEY
-		const projectsAmount = 8
+		const projectsAmount = 6
 
 		fetch(server_url + route + auth, {
 			method: 'get',
@@ -50,18 +60,10 @@ class NasaTechport extends React.Component {
 	render(){
 		return(
 			<div>
-				<div style={NavBar}>
-					<div style={LinksWrapper}>
-						<a style={Link} href="home"><b>Home</b></a>
-						<a style={Link} href="news"><b>News</b></a>
-						<a style={Link} href="contact"><b>Contact</b></a>
-					</div>
-					<img src={techportLogo} style={TechportLogo} alt="NasaLogo" />
-					<img src={nasaLogo} style={NasaLogo} alt="TechPort" />
-				</div>
+				<NavBar />
 				<main style={Main}>
-					<div style={Projects}>
-			            { this.state.projects.map((projectId, i) => <ProjectCard id={projectId} key={i} /> ) }
+					<div style={Projects}> 
+			            { this.state.projects.map((projectId, i) => <ProjectCard removeProject={this.removeProject} id={projectId} key={i} /> ) }
 			        </div>
 				</main>
 			</div>
@@ -83,39 +85,8 @@ const Projects = {
 }
 
 const Main = {
-    minHeight: '1200px',
+    minHeight: '1400px',
     backgroundColor: '#101010',
 }
-
-const NavBar = {
-	display: 'flex',
-	flexWrap: 'wrap',
-	justifyContent: 'space-around',
-	width: '100%',
-	alignItems: 'center',
-	backgroundColor: 'black',
-	height: '150px'
-}
-
-const Link = {
-	float: 'left',
-	textAlign: 'center',
-	padding: '12px',
-	color: 'white',
-	textDecoration: 'none',
-	fontSize: '18px',
-}
-
-const LinksWrapper = {
-}
-
-const TechportLogo = {
-	height: 50
-
-}
-const NasaLogo = {
-	height: 80,
-}
-
 
 export default NasaTechport;
