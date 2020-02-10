@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Nasa TechPort App
+
+Improvements to do:
+- Smoother animation on the Collapsible
+- Responsiveness
+- Improve the design of the card
+- Parse the Full description taking out the html tags
+- Testing
+
 ## Available Scripts
 
 In the project directory, you can run:
